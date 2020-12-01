@@ -1,0 +1,29 @@
+{# app/Resources/views/default/mainpage.html.twig #}
+<html>
+    <head>
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="/css/base.css"/>
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}
+            <div id="sidebar">
+                {% block sidebar %}
+                    <ul>
+                    {% if !user.username %}
+                        <li><a href="/login">Login</a></li>
+                    {% else %}
+                        <li>Hallo {{ user.username }}!</li>
+                        <li><a href="/blog/list">Blog</a></li>
+                        <li><a href="/logout">logout</a></li>
+                    {% endif %}
+                    </ul>
+                {% endblock %}
+            </div>
+
+            <div id="content">
+                {% block content %}{% endblock %}
+            </div>
+        {% endblock %}
+    </body>
+</html>
