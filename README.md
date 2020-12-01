@@ -2,26 +2,27 @@ blog2020
 ========
 
 Ziel dieses Projektes ist die entwicklung eines Digitalen Tagebuches.
-Der Autor soll die Fähigkeit besitzten Festzulegen welcher Eintrag zu lesen ist und welcher nicht.
+Der Autor soll die Fähigkeit besitzten Festzulegen welcher Eintrag zu lesen ist und welcher nicht.</br></br>
 
 Alle einträge des Tagebuchs sind hinter einem Login Feld verborgen.
-Auch das Registrieren Feld wird in einem Admin bereich verborgen. 
+Auch das Registrieren Feld wird in einem Admin bereich verborgen. </br></br>
 
 Die Datenbank ist ausgelagert in einem Docker Container.
-Die Datenbank verwendet MySQL 8.0.21. Das Framework das 
+Die Datenbank verwendet MySQL 8.0.21. Das Framework das </br></br>
 
-Aktuell verwendet wird die Symfony version 3.4, aufgrund seiner weiten verbreitung.
+Aktuell verwendet wird die Symfony version 3.4, aufgrund seiner weiten verbreitung.</br></br>
 
-Current Release:
-Create Table User
-Create Table Article
-LogIn/LogOut
-RegisterUser
-Create Article
-Show ALL Article
-Show ONE Article
+Current Release:</br>
+Create Table User</br>
+Create Table Article</br>
+LogIn/LogOut</br>
+RegisterUser</br>
+Create Article</br>
+Show ALL Article</br>
+Show ONE Article</br>
 
-Roadmap
-Fetching Related Objects (Article/User)
-Update Article
-Use Bootstrap
+Roadmap:</br>
+Fetching Related Objects (Article/User)</br>
+Change Password</br>
+Update Article</br>
+Use Bootstrap</br>
