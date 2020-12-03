@@ -73,53 +73,49 @@ class DefaultController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/userpage", name="userpage")
-     */
-    public function userPage(Request $request)
-    {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        return $this->render('default/userpage.html.twig', [
-            
-            'user' => $user,
-        ]);
+    public function updateArticle(){
+
     }
 
     /**
-     * @Route("/blog/list/{articleID}")
+     * @Route("/blog/list")
      */
-    public function showArticle($articleID = NULL)
+    public function showAllArticle()
     {
-        ;
 
-        if ($articleID == NULL) {
-            $article = $this->getDoctrine()
-            ->getRepository(Article::class)
-            ->findAll();
-        }else{
-            
-            $article = $this->getDoctrine()
-            ->getRepository(Article::class)
-            ->findBy(array("id" => $articleID));
+        $articles = $this->getDoctrine()
+        ->getRepository(Article::class)
+        ->findAll();
+
+        if (!$articles) {
+            throw $this->createNotFoundException(
+                'No Article list has been found'
+            );
         }
 
-        var_dump($article);
-
-        #var_dump($this->getUser()->getUsername());
-        #var_dump($this->getUser() instanceof User);
-        
-
+        return $this->render('blog/articles.html.twig', [
+            'articles' => $articles,
+        ]);
+    }
+    
+    /**
+     * @Route("/blog/list/{articleID}")
+     */
+    public function showArticle($articleID)
+    {
+      
+        $article = $this->getDoctrine()
+        ->getRepository(Article::class)
+        ->find($articleID);
 
         if (!$article) {
             throw $this->createNotFoundException(
-                'No Article found for ID: ' . $article
+                'No Article found for ID: ' . $articleID
             );
         }
 
         return $this->render('blog/article.html.twig', [
-            
-            'articles' => $article,
+            'article' => $article,
         ]);
     }
-    
 }

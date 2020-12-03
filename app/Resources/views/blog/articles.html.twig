@@ -3,10 +3,13 @@
 
 <h1> Blog </h1>
 
-    <h2>{{ article.title }}</h2>
+{% for article in articles %}
+    <h2><a href="/blog/list/{{ article.id }}">{{ article.title }}</a></h2>
     {{ article.text }}
     <p>{{ article.user.username }}</p>
-
+{% else %}
+    No Article have been found. 
+{% endfor %}
 <p>
     <a href="/blog/list">back to list</a>
 </p>

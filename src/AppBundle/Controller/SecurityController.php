@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class SecurityController extends Controller
 {
@@ -23,6 +24,23 @@ class SecurityController extends Controller
             'error'         => $error,
         ]);
 
+    }
+
+    public function changePasswort(){
+
+    }
+
+
+    /**
+     * @Route("/userpage", name="userpage")
+     */
+    public function userPage(Request $request)
+    {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        return $this->render('default/userpage.html.twig', [
+            
+            'user' => $user,
+        ]);
     }
 
 }
