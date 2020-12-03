@@ -20,9 +20,9 @@ RegisterUser</br>
 Create Article</br>
 Show ALL Article</br>
 Show ONE Article</br>
+Fetching Related Objects (Article/User)</br>
 
 Roadmap:</br>
-Fetching Related Objects (Article/User)</br>
 Change Password</br>
 Update Article</br>
 Use Bootstrap</br>
