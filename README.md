@@ -21,8 +21,8 @@ Create Article</br>
 Show ALL Article</br>
 Show ONE Article</br>
 Fetching Related Objects (Article/User)</br>
+Update Article</br>
 
 Roadmap:</br>
 Change Password</br>
-Update Article</br>
 Use Bootstrap</br>

@@ -4,8 +4,37 @@
         <title>Welcome to your blog!</title>
     </head>
     <body>
+    <div id="User">
         Hallo {{ user.username }}!
 
         <a href="/logout">logout</a>
+
+        
+        <a href="/blog/createArticle">+ New Article</a>
+    </div>
+    <div id="Article">
+        {% for message in app.flashes('success') %}
+            <div class="flash-notice">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {% for article in articles %}
+            <h2><a href="/blog/list/{{ article.id }}">{{ article.title }}</a></h2>
+            {{ article.text }}
+            <p>
+            {% if article.isPublic %}
+                Sichtbar
+            {% else %}    
+                Unsichtbar
+            {% endif %}
+
+            <a href="/blog/updateArticle/{{ article.id }}">Update Article</a>
+            <a href="/blog/deleteArticle/{{ article.id }}">Delete Article</a>
+            </p>
+        {% else %}
+            No Article have been found. 
+        {% endfor %}
+    </div>
     </body>
 </html>

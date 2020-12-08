@@ -1,15 +1,11 @@
-{# app/Resources/views/blog/article.html.twig #}
-
-
-<h1> Blog </h1>
+{# app/Resources/views/blog/articles.html.twig #}
 
 {% for article in articles %}
+<div id="Article">
     <h2><a href="/blog/list/{{ article.id }}">{{ article.title }}</a></h2>
     {{ article.text }}
     <p>{{ article.user.username }}</p>
+</div>
 {% else %}
     No Article have been found. 
 {% endfor %}
-<p>
-    <a href="/blog/list">back to list</a>
-</p>

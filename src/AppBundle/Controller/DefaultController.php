@@ -6,6 +6,7 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\Task;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
+use Doctrine\DBAL\Types\Type;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -20,6 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Mime\Message;
 use Symfony\Component\Security\Core\User\User as UserUser;
 
 class DefaultController extends Controller
@@ -41,11 +43,11 @@ class DefaultController extends Controller
      */
     public function createArticle(Request $request)
     {
-        
+
         $article = new Article();
         $article->setTitle('write the Title');
         $article->setText('write the Article');
-        $article->setUser($this->get('security.token_storage')->getToken()->getUser()->getId());
+        $article->setUser($this->get('security.token_storage')->getToken()->getUser());
         $article->setDueTime(new \DateTime("now"));
 
         $form = $this->createFormBuilder($article)
@@ -62,9 +64,9 @@ class DefaultController extends Controller
 
         $form->handleRequest($request);    
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($article);
+            $entityManager->flush();
             return new Response('Article added successfuly');
         }
 
@@ -73,7 +75,72 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function updateArticle(){
+    /**
+     * @Route("/blog/updateArticle/{articleID}")
+     */
+    public function updateArticle(Request $request, $articleID)
+    {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $article = $entityManager->getRepository(Article::class)->find($articleID);
+
+        if($this->get('security.token_storage')->getToken()->getUser() !== $article->getUser()){
+            return $this->redirect('/blog/list/' . $articleID);
+        }
+
+        if (!$article) {
+            throw $this->createNotFoundException(
+                'No article found for id '.$articleID
+            );
+        }
+
+        $article->setTitle($article->getTitle());
+        $article->setText($article->getText());
+
+        $form = $this->createFormBuilder($article)
+            ->add('title', TextType::class)
+            ->add('text', TextareaType::class)
+            ->add('save', SubmitType::class, ['label'=> 'Update Article'])
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $entityManager->flush();
+            return new Response('Article Updated successfuly');
+        }
+
+        return $this->render('blog/update.html.twig',[
+            'form' => $form->createView(),
+        ]);
+
+    }
+
+    /**
+     * @Route("/blog/deleteArticle/{articleID}", name="article_delete")
+     * 
+     */
+    public function deleteArticle(Request $request, $articleID)
+    {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $article = $entityManager->getRepository(Article::class)->find($articleID);
+
+        if($this->get('security.token_storage')->getToken()->getUser() !== $article->getUser()){
+            return $this->redirect('/userpage');
+        }
+
+        if (!$article) {
+            throw $this->createNotFoundException(
+                'No article found for id '.$articleID
+            );
+        }
+
+        $entityManager->remove($article);
+        $entityManager->flush();
+
+
+        $this->addFlash('Success', 'Post has been removed');
+        return $this->redirect('userpage');
 
     }
 
@@ -83,9 +150,8 @@ class DefaultController extends Controller
     public function showAllArticle()
     {
 
-        $articles = $this->getDoctrine()
-        ->getRepository(Article::class)
-        ->findAll();
+        $entityManager = $this->getDoctrine()->getManager();
+        $articles = $entityManager->getRepository(Article::class)->findAll();
 
         if (!$articles) {
             throw $this->createNotFoundException(
@@ -103,10 +169,8 @@ class DefaultController extends Controller
      */
     public function showArticle($articleID)
     {
-      
-        $article = $this->getDoctrine()
-        ->getRepository(Article::class)
-        ->find($articleID);
+       $entityManager = $this->getDoctrine()->getManager();
+        $article = $entityManager->getRepository(Article::class)->find($articleID);
 
         if (!$article) {
             throw $this->createNotFoundException(
@@ -118,4 +182,34 @@ class DefaultController extends Controller
             'article' => $article,
         ]);
     }
+
+
+    /**
+     * @Route("/blog/visibleArticle/{articleID}", name="visible")
+     */
+    public function visibleArticle(Request $request, $articleID)
+    {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $article = $entityManager->getRepository(Article::class)->find($articleID);
+
+        if($this->get('security.token_storage')->getToken()->getUser() !== $article->getUser()){
+            return $this->redirect('/blog/list/' . $articleID);
+        }
+
+        if (!$article) {
+            throw $this->createNotFoundException(
+                'No article found for id '.$articleID
+            );
+        }
+
+        $article->setIsPublic($article->getIsPublic());
+
+
+
+
+
+    }
+
+
 }

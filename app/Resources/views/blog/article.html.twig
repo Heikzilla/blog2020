@@ -1,11 +1,10 @@
 {# app/Resources/views/blog/article.html.twig #}
 
-
-<h1> Blog </h1>
-
+<div id="Article">
     <h2>{{ article.title }}</h2>
     {{ article.text }}
     <p>{{ article.user.username }}</p>
+</div>
 
 <p>
     <a href="/blog/list">back to list</a>

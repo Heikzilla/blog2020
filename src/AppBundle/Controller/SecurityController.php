@@ -1,6 +1,9 @@
 <?php
 namespace AppBundle\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
+use AppBundle\Entity\Article;
+
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,8 +40,19 @@ class SecurityController extends Controller
     public function userPage(Request $request)
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
+        #var_dump($user);
+        $entityManager = $this->getDoctrine()->getManager();
+        $articles = $entityManager->getRepository(Article::class)->findBy(array('user' => $user->getId()));
+        var_dump($articles->getIsPublic());
+
+        if (!$articles) {
+            throw $this->createNotFoundException(
+                'No Article list has been found'
+            );
+        }
+        
         return $this->render('default/userpage.html.twig', [
-            
+            'articles' => $articles,
             'user' => $user,
         ]);
     }
