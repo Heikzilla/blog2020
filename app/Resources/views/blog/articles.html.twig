@@ -3,12 +3,13 @@
 
 {% block title %}Index{% endblock %}
 
+
 {% block content %}
     {% for article in articles %}
-    <div id="Article">
+    <div id="Article" class="col-md-8">
         <h2><a href="/blog/list/{{ article.id }}">{{ article.title }}</a></h2>
-        {{ article.text }}
-        <p>{{ article.user.username }}</p>
+        <p style="width: 30 rem;">{{ article.text }}</p>
+        {{ article.user.username }}
     </div>
     {% else %}
         No Article have been found. 

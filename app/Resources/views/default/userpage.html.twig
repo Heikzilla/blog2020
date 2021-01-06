@@ -16,13 +16,13 @@
             {{ article.text }}
             <p>
             {% if article.isPublic %}
-                <a href="/blog/visibleArticle/{{ article.id }}"  class="w3-btn w3-green">Sichtbar</a>
+                <a href="/blog/visibleArticle/{{ article.id }}"  class="btn btn-success">Sichtbar</a>
             {% else %}    
-                <a href="/blog/visibleArticle/{{ article.id }}"  class="w3-btn w3-red">Unsichtbar</a>
+                <a href="/blog/visibleArticle/{{ article.id }}"  class="btn btn-warning">Unsichtbar</a>
             {% endif %}
 
-            <a href="/blog/updateArticle/{{ article.id }}"  class="w3-btn w3-blue">Update Article</a>
-            <a href="/blog/deleteArticle/{{ article.id }}"  class="w3-btn w3-red">Delete Article</a>
+            <a href="/blog/updateArticle/{{ article.id }}"  class="btn btn-primary">Update Article</a>
+            <a href="/blog/deleteArticle/{{ article.id }}"  class="btn btn-danger">Delete Article</a>
             </p>
         </div>
         {% else %}
