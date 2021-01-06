@@ -1,0 +1,49 @@
+div{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#Article {
+        width: 80%;
+        background-color: #666666;
+        padding: 10px;
+        margin-bottom: 10px;
+        margin-left: 8%;
+}
+
+#Navigation{
+    background-color: #F5F5F5;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+#Navigation.a{
+    background-color: lightgreen;
+}
+
+form{
+    background-color: #666666;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-left: 8%;
+    border-radius: 8px;
+    width: 80%;
+}
+
+input[type=text]{
+    width: 80%;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+textarea {
+    width: 100%;
+    height: 550px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+}

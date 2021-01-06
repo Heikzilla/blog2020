@@ -44,6 +44,27 @@ class RegistrationController extends Controller
             ['form' => $form->createView()]
         );
     }
+
+    /**
+     * @Route("/changePassword", name="changePassword")
+     */
+    public function changePasswort(Request $request, UserPasswordEncoderInterface $passwordEncoder){
+
+        $user = $this->getUser();
+        $form = $this->createForm(UserType::class, $user);
+        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+        }
+
+        return $this->render(
+            'security/changePW.html.twig',
+            ['form' => $form->createView()]
+        );
+    }
 }
 
 ?>

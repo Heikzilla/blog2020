@@ -7,6 +7,7 @@ use AppBundle\Entity\Task;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
 use Doctrine\DBAL\Types\Type;
+use AppBundle\Controller\SecurityController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -178,6 +179,8 @@ class DefaultController extends Controller
             );
         }
 
+        #var_dump(!$article->getIsPublic());
+
         return $this->render('blog/article.html.twig', [
             'article' => $article,
         ]);
@@ -189,26 +192,23 @@ class DefaultController extends Controller
      */
     public function visibleArticle(Request $request, $articleID)
     {
+        var_dump($articleID);
 
         $entityManager = $this->getDoctrine()->getManager();
         $article = $entityManager->getRepository(Article::class)->find($articleID);
 
-        if($this->get('security.token_storage')->getToken()->getUser() !== $article->getUser()){
-            return $this->redirect('/blog/list/' . $articleID);
-        }
-
         if (!$article) {
             throw $this->createNotFoundException(
-                'No article found for id '.$articleID
+                'No article found for id ' . $articleID
             );
         }
+        $article->setIsPublic(!$article->getIsPublic());
 
-        $article->setIsPublic($article->getIsPublic());
+        $entityManager->flush();
 
-
-
-
-
+        new Response('Article status changed to ' . $article->getIsPublic());
+        
+        return $this->redirect('/userpage');
     }
 
 

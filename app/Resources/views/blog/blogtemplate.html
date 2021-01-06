@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %} - My Webpage</title>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        
+        <link rel="stylesheet" href="bootstrap/dist/css/blogtemplate.css">
+    </head>
+    <body>
+        <div id="Navigation">
+            <h1>Nalas Tagebuch</h1>
+            <a href="/blog/list" class="w3-btn w3-black">Blog</a>
+            <a href="/userpage" class="w3-btn w3-black">User Page</a>
+            <a href="/blog/createArticle" class="w3-btn w3-black">+ New Article</a>
+        </div>
+        
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+
+    </body>
+</html>

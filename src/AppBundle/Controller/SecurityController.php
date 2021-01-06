@@ -29,11 +29,6 @@ class SecurityController extends Controller
 
     }
 
-    public function changePasswort(){
-
-    }
-
-
     /**
      * @Route("/userpage", name="userpage")
      */
@@ -43,7 +38,7 @@ class SecurityController extends Controller
         #var_dump($user);
         $entityManager = $this->getDoctrine()->getManager();
         $articles = $entityManager->getRepository(Article::class)->findBy(array('user' => $user->getId()));
-        var_dump($articles->getIsPublic());
+        #var_dump($articles);
 
         if (!$articles) {
             throw $this->createNotFoundException(

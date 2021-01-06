@@ -1,11 +1,16 @@
 {# app/Resources/views/blog/article.html.twig #}
+{% extends "blog/blogtemplate.html" %}
 
-<div id="Article">
-    <h2>{{ article.title }}</h2>
-    {{ article.text }}
-    <p>{{ article.user.username }}</p>
-</div>
+{% block title %}{{ article.title }}{% endblock %}
 
-<p>
-    <a href="/blog/list">back to list</a>
-</p>
+{% block content %}
+    <div id="Article">
+        <h2>{{ article.title }}</h2>
+        {{ article.text }}
+        <p>{{ article.user.username }}</p>
+    </div>
+
+    <p>
+        <a href="/blog/list">back to list</a>
+    </p>
+{% endblock %}

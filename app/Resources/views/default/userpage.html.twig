@@ -1,18 +1,9 @@
 {# app/Resources/views/default/userpage.html.twig #}
-<html>
-    <head>
-        <title>Welcome to your blog!</title>
-    </head>
-    <body>
-    <div id="User">
-        Hallo {{ user.username }}!
+{% extends "blog/blogtemplate.html" %}
+{% block title %}Userbereich{% endblock %}
 
-        <a href="/logout">logout</a>
-
-        
-        <a href="/blog/createArticle">+ New Article</a>
-    </div>
-    <div id="Article">
+{% block content %}
+    
         {% for message in app.flashes('success') %}
             <div class="flash-notice">
                 {{ message }}
@@ -20,21 +11,22 @@
         {% endfor %}
 
         {% for article in articles %}
+        <div id="Article">
             <h2><a href="/blog/list/{{ article.id }}">{{ article.title }}</a></h2>
             {{ article.text }}
             <p>
             {% if article.isPublic %}
-                Sichtbar
+                <a href="/blog/visibleArticle/{{ article.id }}"  class="w3-btn w3-green">Sichtbar</a>
             {% else %}    
-                Unsichtbar
+                <a href="/blog/visibleArticle/{{ article.id }}"  class="w3-btn w3-red">Unsichtbar</a>
             {% endif %}
 
-            <a href="/blog/updateArticle/{{ article.id }}">Update Article</a>
-            <a href="/blog/deleteArticle/{{ article.id }}">Delete Article</a>
+            <a href="/blog/updateArticle/{{ article.id }}"  class="w3-btn w3-blue">Update Article</a>
+            <a href="/blog/deleteArticle/{{ article.id }}"  class="w3-btn w3-red">Delete Article</a>
             </p>
+        </div>
         {% else %}
             No Article have been found. 
         {% endfor %}
-    </div>
-    </body>
-</html>
+    
+{% endblock %}

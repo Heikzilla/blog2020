@@ -1,0 +1,10 @@
+{# app/Resources/views/security/changePW.html.twig #}
+
+
+
+{{ form_start(form) }}
+    {{ form_row(form.plainPassword.first) }}
+    {{ form_row(form.plainPassword.second) }}
+
+    <button type="submit">Change Password!</button>
+{{ form_end(form) }}

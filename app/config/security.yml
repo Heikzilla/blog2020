@@ -12,7 +12,7 @@ security:
 
     access_control:
         - { path: '^/login|/register', roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: '^/userpage|/blog', roles: ROLE_USER }
+        - { path: '^/userpage|/blog|/changePassword', roles: ROLE_USER }
         - { path: '^/', roles: ROLE_ADMIN }
 
     firewalls:
