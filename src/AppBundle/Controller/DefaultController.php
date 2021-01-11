@@ -79,7 +79,7 @@ class DefaultController extends Controller
     /**
      * @Route("/blog/updateArticle/{articleID}")
      */
-    public function updateArticle(Request $request, $articleID)
+    public function updateArticle(Request $request, int $articleID)
     {
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -120,7 +120,7 @@ class DefaultController extends Controller
      * @Route("/blog/deleteArticle/{articleID}", name="article_delete")
      * 
      */
-    public function deleteArticle(Request $request, $articleID)
+    public function deleteArticle(Request $request, int $articleID)
     {
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -168,7 +168,7 @@ class DefaultController extends Controller
     /**
      * @Route("/blog/list/{articleID}")
      */
-    public function showArticle($articleID)
+    public function showArticle(int $articleID)
     {
        $entityManager = $this->getDoctrine()->getManager();
         $article = $entityManager->getRepository(Article::class)->find($articleID);
@@ -190,7 +190,7 @@ class DefaultController extends Controller
     /**
      * @Route("/blog/visibleArticle/{articleID}", name="visible")
      */
-    public function visibleArticle(Request $request, $articleID)
+    public function visibleArticle(Request $request, int $articleID)
     {
         var_dump($articleID);
 
