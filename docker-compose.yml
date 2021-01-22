@@ -9,6 +9,6 @@ services:
       - 3307:3306
     environment:
       MYSQL_ROOT_PASSWORD: rootpw
-      MYSQL_DATABASE: cabin
-      MYSQL_USER: cabin
-      MYSQL_PASSWORD: cabinpw
+      MYSQL_DATABASE: blogDB
+      MYSQL_USER: root
+      MYSQL_PASSWORD: rootpw
