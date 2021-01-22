@@ -1,3 +1,24 @@
+<VirtualHost *:80>
+    ServerName nalas-tagebuch.de
+    ServerAlias www.nalas-tagebuch.de
+
+    DocumentRoot /var/www/blog2020/web
+    <Directory /var/www/blog2020/web>
+        AllowOverride All
+        Order Allow,Deny
+        Allow from All
+    </Directory>
+
+    # uncomment the following lines if you install assets as symlinks
+    # or run into problems when compiling LESS/Sass/CoffeeScript assets
+    # <Directory /var/www/blog2020>
+    #     Options FollowSymlinks
+    # </Directory>
+
+    ErrorLog /var/log/apache2/project_error.log
+    CustomLog /var/log/apache2/project_access.log combined
+</VirtualHost>
+
 # Use the front controller as index file. It serves as a fallback solution when
 # every other rewrite/redirect fails (e.g. in an aliased environment without
 # mod_rewrite). Additionally, this reduces the matching process for the
