@@ -3,6 +3,7 @@ services:
   blogDB_db:
     image: mysql:latest
     command: --default-authentication-plugin=mysql_native_password
+    container_name: laufEndlich
     volumes:
       - "./.mysql-data/db:/var/lib/mysql"
     restart: always
@@ -11,5 +12,5 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: rootpw
       MYSQL_DATABASE: blogDB
-      MYSQL_USER: root
-      MYSQL_PASSWORD: rootpw
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpw
