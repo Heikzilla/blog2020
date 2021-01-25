@@ -1,6 +1,6 @@
 <VirtualHost *:80>
-    ServerName nalas-tagebuch.de
-    ServerAlias www.nalas-tagebuch.de
+    ServerName h2919222.stratoserver.net/
+    ServerAlias h2919222.stratoserver.net/
 
     DocumentRoot /var/www/blog2020/web
     DirectoryIndex /app.php
