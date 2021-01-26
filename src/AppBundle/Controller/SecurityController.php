@@ -45,7 +45,7 @@ class SecurityController extends Controller
                 'No Article list has been found'
             );
 
-            return $this->redirect('/blog/createArticle');
+            return $this->redirectToRoute('/blog/createArticle');
         }
         
         return $this->render('default/userpage.html.twig', [
