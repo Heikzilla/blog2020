@@ -560,13 +560,6 @@ class SymfonyRequirements extends RequirementCollection
         if (file_exists(__DIR__.'/../vendor/composer')) {
             require_once __DIR__.'/../vendor/autoload.php';
 
-            try {
-                $r = new ReflectionClass('Sensio\Bundle\DistributionBundle\SensioDistributionBundle');
-
-                $contents = file_get_contents(dirname($r->getFileName()).'/Resources/skeleton/app/SymfonyRequirements.php');
-            } catch (ReflectionException $e) {
-                $contents = '';
-            }
             $this->addRecommendation(
                 file_get_contents(__FILE__) === $contents,
                 'Requirements file should be up-to-date',
