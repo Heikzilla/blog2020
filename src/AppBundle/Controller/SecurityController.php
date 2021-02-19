@@ -41,11 +41,7 @@ class SecurityController extends Controller
         #var_dump($articles);
 
         if (!$articles) {
-            throw $this->createNotFoundException(
-                'No Article list has been found'
-            );
-
-            return $this->redirectToRoute('/blog/createArticle');
+            $articles = false;
         }
         
         return $this->render('default/userpage.html.twig', [

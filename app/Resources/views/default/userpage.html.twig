@@ -9,24 +9,27 @@
                 {{ message }}
             </div>
         {% endfor %}
-
-        {% for article in articles %}
-        <div id="Article">
-            <h2><a href="/blog/list/{{ article.id }}">{{ article.title }}</a></h2>
-            {{ article.text }}
-            <p>
-            {% if article.isPublic %}
-                <a href="/blog/visibleArticle/{{ article.id }}"  class="btn btn-success">Sichtbar</a>
-            {% else %}    
-                <a href="/blog/visibleArticle/{{ article.id }}"  class="btn btn-warning">Unsichtbar</a>
-            {% endif %}
-
-            <a href="/blog/updateArticle/{{ article.id }}"  class="btn btn-primary">Update Article</a>
-            <a href="/blog/deleteArticle/{{ article.id }}"  class="btn btn-danger">Delete Article</a>
-            </p>
-        </div>
+        {% if articles == false %}
+            <p>No Articles have been found.</p>
         {% else %}
-            No Article have been found. 
-        {% endfor %}
+        
+            {% for article in articles %}
+            <div id="Article">
+                <h2><a href="/blog/list/{{ article.id }}">{{ article.title }}</a></h2>
+                {{ article.text }}
+                <p>
+                {% if article.isPublic %}
+                    <a href="/blog/visibleArticle/{{ article.id }}"  class="btn btn-success">Sichtbar</a>
+                {% else %}    
+                    <a href="/blog/visibleArticle/{{ article.id }}"  class="btn btn-warning">Unsichtbar</a>
+                {% endif %}
+
+                <a href="/blog/updateArticle/{{ article.id }}"  class="btn btn-primary">Update Article</a>
+                <a href="/blog/deleteArticle/{{ article.id }}"  class="btn btn-danger">Delete Article</a>
+                </p>
+            </div>             
+            {% endfor %}
+
+        {% endif %}    
     
 {% endblock %}

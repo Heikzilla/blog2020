@@ -68,7 +68,7 @@ class DefaultController extends Controller
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             $entityManager->flush();
-            return new Response('Article added successfuly');
+            return $this->redirect('/blog/list');
         }
 
         return $this->render('blog/create.html.twig',[
@@ -107,7 +107,7 @@ class DefaultController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $entityManager->flush();
-            return new Response('Article Updated successfuly');
+            return  $this->redirect('/userpage');
         }
 
         return $this->render('blog/update.html.twig',[
@@ -155,9 +155,7 @@ class DefaultController extends Controller
         $articles = $entityManager->getRepository(Article::class)->findAll();
 
         if (!$articles) {
-            throw $this->createNotFoundException(
-                'No Article list has been found'
-            );
+            $articles = false;
         }
 
         return $this->render('blog/articles.html.twig', [
