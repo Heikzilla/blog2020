@@ -32,7 +32,7 @@ security:
             form_login: 
                 login_path: login
                 check_path: login
-                #target: /userpage
+                default_target_path: /blog/list
 
             logout:
                 path:   /logout
