@@ -152,12 +152,12 @@ class DefaultController extends Controller
     {
 
         $entityManager = $this->getDoctrine()->getManager();
-        $articles = $entityManager->getRepository(Article::class)->findAll();
+        $articles = $entityManager->getRepository(Article::class)->findBy(array('isPublic' => true));#->findAll();
 
         if (!$articles) {
             $articles = false;
         }
-        
+
         foreach($articles as $article){
             $short = substr($article->getText(),0 ,384 );
             $article->setText($short . "...");
