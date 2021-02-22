@@ -157,6 +157,11 @@ class DefaultController extends Controller
         if (!$articles) {
             $articles = false;
         }
+        
+        foreach($articles as $article){
+            $short = substr($article->getText(),0 ,384 );
+            $article->setText($short . "...");
+        }
 
         return $this->render('blog/articles.html.twig', [
             'articles' => $articles,
