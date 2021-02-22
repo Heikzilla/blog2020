@@ -152,7 +152,7 @@ class DefaultController extends Controller
     {
 
         $entityManager = $this->getDoctrine()->getManager();
-        $articles = $entityManager->getRepository(Article::class)->findBy(array('isPublic' => true));#->findAll();
+        $articles = $entityManager->getRepository(Article::class)->findBy(array('isPublic' => true), array('dueTime' => 'desc'));#->findAll();
 
         if (!$articles) {
             $articles = false;

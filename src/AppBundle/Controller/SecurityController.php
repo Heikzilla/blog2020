@@ -37,7 +37,7 @@ class SecurityController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
         #var_dump($user);
         $entityManager = $this->getDoctrine()->getManager();
-        $articles = $entityManager->getRepository(Article::class)->findBy(array('user' => $user->getId()));
+        $articles = $entityManager->getRepository(Article::class)->findBy(array('user' => $user->getId()), array('dueTime' => 'desc'));
         #var_dump($articles);
 
         if (!$articles) {
