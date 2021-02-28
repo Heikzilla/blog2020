@@ -182,8 +182,6 @@ class DefaultController extends Controller
             );
         }
 
-        #var_dump(!$article->getIsPublic());
-
         return $this->render('blog/article.html.twig', [
             'article' => $article,
         ]);
@@ -195,8 +193,6 @@ class DefaultController extends Controller
      */
     public function visibleArticle(Request $request, int $articleID)
     {
-        var_dump($articleID);
-
         $entityManager = $this->getDoctrine()->getManager();
         $article = $entityManager->getRepository(Article::class)->find($articleID);
 

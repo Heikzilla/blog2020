@@ -6,7 +6,7 @@
 {% block content %}
     <div id="Article">
         <h2>{{ article.title }}</h2>
-        {{ article.text }}
+        <p>{{ article.text|nl2br }}</p>
         <p>{{ article.user.username }}</p>
     </div>
 
