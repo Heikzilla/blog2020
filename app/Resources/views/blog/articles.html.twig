@@ -14,6 +14,13 @@
             <h2><a href="/blog/list/{{ article.id }}">{{ article.title }}</a></h2>
             <p>{{ article.text }}</p>
             {{ article.user.username }}
+            <p>
+                {% if article.likeIt %}
+                    <a href="/blog/likeArticle/{{ article.id }}"  class="btn btn-success">Like</a>
+                {% else %}    
+                    <a href="/blog/likeArticle/{{ article.id }}"  class="btn btn-warning">none</a>
+                {% endif %}
+            </p>
         </div>
         {% endfor %}
     {% endif %} 

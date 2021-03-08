@@ -23,6 +23,10 @@ Show ONE Article</br>
 Fetching Related Objects (Article/User)</br>
 Update Article</br>
 
+Current:</br>
+Like Article</br>
+Verify eMail adress</br>
+
 Roadmap:</br>
 Change Password</br>
 Use Bootstrap</br>

@@ -210,5 +210,27 @@ class DefaultController extends Controller
         return $this->redirect('/userpage');
     }
 
+    /**
+     * @Route("/blog/likeArticle/{articleID}", name="like")
+     */
+    public function likeArticle(Request $request, int $articleID)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $article = $entityManager->getRepository(Article::class)->find($articleID);
+
+        if (!$article) {
+            throw $this->createNotFoundException(
+                'No article found for id ' . $articleID
+            );
+        }
+        $article->setLikeIt(!$article->getLikeIt());
+
+        $entityManager->flush();
+
+        new Response('Article status changed to ' . $article->getLikeIt());
+        
+        return $this->redirect('/blog/list');
+    }
+
 
 }

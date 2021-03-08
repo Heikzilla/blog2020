@@ -6,11 +6,17 @@
 {% block content %}
     <div id="Article">
         <h2>{{ article.title }}</h2>
-        <p>{{ article.text|nl2br }}</p>
+        <p>{{ article.text|nl2br }}</p>{# |nl2br converts \n to html symbol #}
         <p>{{ article.user.username }}</p>
     </div>
 
-    <p>
+    <p>      
+        {% if article.likeIt %}
+            <a href="/blog/likeArticle/{{ article.id }}"  class="btn btn-success">Like</a>
+        {% else %}    
+            <a href="/blog/likeArticle/{{ article.id }}"  class="btn btn-warning">none</a>
+        {% endif %}
+            
         <a href="/blog/list" class="btn btn-outline-secondary">back to list</a>
     </p>
 {% endblock %}

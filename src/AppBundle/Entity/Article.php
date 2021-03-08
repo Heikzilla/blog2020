@@ -49,6 +49,11 @@ class Article
      */
     protected $isPublic;
 
+       /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $likeIt;
+
     /**
      * Get the value of id
      * @return int
@@ -154,6 +159,26 @@ class Article
     public function setUser(User $user)
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of likeIt
+     */ 
+    public function getLikeIt()
+    {
+        return $this->likeIt;
+    }
+
+    /**
+     * Set the value of likeIt
+     *
+     * @return  self
+     */ 
+    public function setLikeIt($likeIt = TRUE)
+    {
+        $this->likeIt = $likeIt;
 
         return $this;
     }
