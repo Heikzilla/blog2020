@@ -66,6 +66,11 @@ class User implements UserInterface, \Serializable
      */
     private $articles;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Likes", mappedBy="user")
+     */
+    private $userLikes;
+
     public function __construct()
     {
         $this->isActive = true;

@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Task;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Likes;
 use AppBundle\Form\UserType;
 use Doctrine\DBAL\Types\Type;
 use AppBundle\Controller\SecurityController;
@@ -153,13 +154,16 @@ class DefaultController extends Controller
 
         $entityManager = $this->getDoctrine()->getManager();
         $articles = $entityManager->getRepository(Article::class)->findBy(array('isPublic' => true), array('dueTime' => 'desc'));#->findAll();
+        $likes = true;
 
         if (!$articles) {
             $articles = false;
         }
+        
 
         foreach($articles as $article){
             $short = substr($article->getText(),0 ,384 );
+            var_dump(count($article->getLikedArticle()));
             $article->setText($short . "...");
         }
 
@@ -175,6 +179,7 @@ class DefaultController extends Controller
     {
        $entityManager = $this->getDoctrine()->getManager();
         $article = $entityManager->getRepository(Article::class)->find($articleID);
+        $likes = $entityManager->getRepository(Likes::class)->findBy(array('article' => $articleID));
 
         if (!$article) {
             throw $this->createNotFoundException(
@@ -182,8 +187,12 @@ class DefaultController extends Controller
             );
         }
 
+        #var_dump($article->getLikedArticle()->getArticleLike());
+
         return $this->render('blog/article.html.twig', [
             'article' => $article,
+            'likes' => $likes,
+            'likeCounts' => count($likes),
         ]);
     }
 
@@ -215,20 +224,17 @@ class DefaultController extends Controller
      */
     public function likeArticle(Request $request, int $articleID)
     {
+
         $entityManager = $this->getDoctrine()->getManager();
-        $article = $entityManager->getRepository(Article::class)->find($articleID);
 
-        if (!$article) {
-            throw $this->createNotFoundException(
-                'No article found for id ' . $articleID
-            );
-        }
-        $article->setLikeIt(!$article->getLikeIt());
+        $likes = new Likes();
+        $likes->setLike(
+            $this->get('security.token_storage')->getToken()->getUser(), //User
+            $entityManager->getRepository(Article::class)->find($articleID) //Article
+        );
 
+        $entityManager->persist($likes);
         $entityManager->flush();
-
-        new Response('Article status changed to ' . $article->getLikeIt());
-        
         return $this->redirect('/blog/list');
     }
 

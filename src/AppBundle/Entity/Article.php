@@ -49,10 +49,10 @@ class Article
      */
     protected $isPublic;
 
-       /**
-     * @ORM\Column(type="boolean")
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Likes", mappedBy="article")
      */
-    protected $likeIt;
+    private $likedArticle;
 
     /**
      * Get the value of id
@@ -164,22 +164,10 @@ class Article
     }
 
     /**
-     * Get the value of likeIt
+     * Get the value of likedArticle
      */ 
-    public function getLikeIt()
+    public function getLikedArticle()
     {
-        return $this->likeIt;
-    }
-
-    /**
-     * Set the value of likeIt
-     *
-     * @return  self
-     */ 
-    public function setLikeIt($likeIt = TRUE)
-    {
-        $this->likeIt = $likeIt;
-
-        return $this;
+        return $this->likedArticle;
     }
 }

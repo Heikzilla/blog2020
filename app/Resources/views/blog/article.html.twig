@@ -7,16 +7,16 @@
     <div id="Article">
         <h2>{{ article.title }}</h2>
         <p>{{ article.text|nl2br }}</p>{# |nl2br converts \n to html symbol #}
-        <p>{{ article.user.username }}</p>
+        <p>Autor: {{ article.user.username }}</p>
     </div>
 
     <p>      
-        {% if article.likeIt %}
-            <a href="/blog/likeArticle/{{ article.id }}"  class="btn btn-success">Like</a>
-        {% else %}    
-            <a href="/blog/likeArticle/{{ article.id }}"  class="btn btn-warning">none</a>
+        {% if likes %}
+            <a href="/blog/dislikeArticle/{{ article.id }}" class="btn btn-warning">dislike</a> {{ likeCounts }}
+        {% else %}   
+            <a href="/blog/likeArticle/{{ article.id }}" class="btn btn-success">Like</a> {{ likeCounts }}
         {% endif %}
-            
-        <a href="/blog/list" class="btn btn-outline-secondary">back to list</a>
     </p>
+    
+    <a href="/blog/list" class="btn btn-outline-secondary">back to list</a>
 {% endblock %}
