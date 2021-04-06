@@ -10,11 +10,11 @@
         <p>Autor: {{ article.user.username }}</p>
     </div>
 
-    <p>      
+    <p>
         {% if likes %}
-            <a href="/blog/dislikeArticle/{{ article.id }}" class="btn btn-warning">dislike</a> {{ likeCounts }}
-        {% else %}   
-            <a href="/blog/likeArticle/{{ article.id }}" class="btn btn-success">Like</a> {{ likeCounts }}
+            <a href="/blog/likeArticle/{{ article.id }}/{{ "delete" }}" class="btn btn-warning">dislike</a> {{ likeCounts }}
+        {% else %}
+            <a href="/blog/likeArticle/{{ article.id }}/{{ "setlike" }}" class="btn btn-success">Like</a> {{ likeCounts }}
         {% endif %}
     </p>
     

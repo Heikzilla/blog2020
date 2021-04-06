@@ -154,21 +154,27 @@ class DefaultController extends Controller
 
         $entityManager = $this->getDoctrine()->getManager();
         $articles = $entityManager->getRepository(Article::class)->findBy(array('isPublic' => true), array('dueTime' => 'desc'));#->findAll();
-        $likes = true;
+        $likes = $entityManager->getRepository(Likes::class)->findBy(array('user' => $this->get('security.token_storage')->getToken()->getUser()->getId()));
+
+        $likeArr = Array();
+
+        foreach($likes as $like){
+            $likeArr[] = $like->getArticleLike()->getId();
+        }
+
 
         if (!$articles) {
             $articles = false;
         }
         
-
         foreach($articles as $article){
             $short = substr($article->getText(),0 ,384 );
-            var_dump(count($article->getLikedArticle()));
             $article->setText($short . "...");
         }
 
         return $this->render('blog/articles.html.twig', [
             'articles' => $articles,
+            'likes' => $likeArr,
         ]);
     }
     
@@ -186,8 +192,6 @@ class DefaultController extends Controller
                 'No Article found for ID: ' . $articleID
             );
         }
-
-        #var_dump($article->getLikedArticle()->getArticleLike());
 
         return $this->render('blog/article.html.twig', [
             'article' => $article,
@@ -220,22 +224,48 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/blog/likeArticle/{articleID}", name="like")
+     * @Route("/blog/likeArticle/{articleID}/{action}", name="like")
      */
-    public function likeArticle(Request $request, int $articleID)
-    {
-
+    public function likeArticle(Request $request, int $articleID, string $action)
+    {  
+    
         $entityManager = $this->getDoctrine()->getManager();
+    
+        switch ($action){
+            case 'setlike':
+                $likes = new Likes();
+                $likes->setLike(
+                    $this->get('security.token_storage')->getToken()->getUser(), //User
+                    $entityManager->getRepository(Article::class)->find($articleID) //Article
+                );
 
-        $likes = new Likes();
-        $likes->setLike(
-            $this->get('security.token_storage')->getToken()->getUser(), //User
-            $entityManager->getRepository(Article::class)->find($articleID) //Article
-        );
+                $entityManager->persist($likes);
+                $entityManager->flush();
+                return $this->redirect('/blog/list');
+            break;
+            
+            case 'delete':
+                $deleteLike = $entityManager->getRepository(Likes::class)->findAll(
+                    array('article' => $articleID), 
+                    array('user' => $this->get('security.token_storage')->getToken()->getUser()->getId())
+                );
 
-        $entityManager->persist($likes);
-        $entityManager->flush();
-        return $this->redirect('/blog/list');
+                #var_dump($deleteLike);
+        
+                if (!$deleteLike) {
+                    throw $this->createNotFoundException(
+                        'You do not have an Like for id '.$articleID
+                    );
+                }
+        
+                $entityManager->remove($deleteLike[0]);
+                    $entityManager->flush();
+                    return $this->redirect('/blog/list');
+            break; 
+        }
+        
+
+
     }
 
 

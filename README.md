@@ -22,11 +22,13 @@ Show ALL Article</br>
 Show ONE Article</br>
 Fetching Related Objects (Article/User)</br>
 Update Article</br>
+Like Article</br>
+Show Datestemp</br>
 
 Current:</br>
-Like Article</br>
 Verify eMail adress</br>
 
 Roadmap:</br>
+Highlight newest article</br>
 Change Password</br>
 Use Bootstrap</br>

@@ -12,15 +12,22 @@
         {% for article in articles %}
         <div id="Article">
             <h2><a href="/blog/list/{{ article.id }}">{{ article.title }}</a></h2>
-            <p>{{ article.text }}</p>
-            
-            <p>
-            {{ article.user.username }}
-            </p>            
-            
-            <p>
-            LIKES {{ article.likedArticle|length }}
+            <p> 
+                {{ article.text }}
             </p>
+            <img src="/app/Resources/views/blog/icons/herz.gif" alt="Like" />
+            <p>
+                {{ article.user.username }}
+            </p>            
+
+    <p>
+        {% if article.id in likes %}
+            <a href="/blog/likeArticle/{{ article.id }}/{{ "delete" }}"><img src="icons/rotes_herz.gif" alt="Dislike" /></a> {{  article.likedArticle|length }}
+        {% else %}
+            <a href="/blog/likeArticle/{{ article.id }}/{{ "setlike" }}"><img src="icons/herz.gif" alt="Like" /></a> {{  article.likedArticle|length }}
+        {% endif %}
+    </p>
+
         </div>
         {% endfor %}
     {% endif %} 
