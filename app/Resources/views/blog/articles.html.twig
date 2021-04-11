@@ -15,16 +15,16 @@
             <p> 
                 {{ article.text }}
             </p>
-            <img src="/app/Resources/views/blog/icons/herz.gif" alt="Like" />
+            
             <p>
                 {{ article.user.username }}
             </p>            
 
     <p>
         {% if article.id in likes %}
-            <a href="/blog/likeArticle/{{ article.id }}/{{ "delete" }}"><img src="icons/rotes_herz.gif" alt="Dislike" /></a> {{  article.likedArticle|length }}
+            <a href="/blog/likeArticle/{{ article.id }}/{{ "delete" }}" class="btn btn-danger">Liked 	&#9829;</a> {{  article.likedArticle|length }}
         {% else %}
-            <a href="/blog/likeArticle/{{ article.id }}/{{ "setlike" }}"><img src="icons/herz.gif" alt="Like" /></a> {{  article.likedArticle|length }}
+            <a href="/blog/likeArticle/{{ article.id }}/{{ "setlike" }}" class="btn btn-outline-dark">Like 	&#9825;</a>  {{  article.likedArticle|length }}
         {% endif %}
     </p>
 

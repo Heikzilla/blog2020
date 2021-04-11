@@ -12,9 +12,9 @@
 
     <p>
         {% if likes %}
-            <a href="/blog/likeArticle/{{ article.id }}/{{ "delete" }}" class="btn btn-warning">dislike</a> {{ likeCounts }}
+            <a href="/blog/likeArticle/{{ article.id }}/{{ "delete" }}" class="btn btn-danger">Liked 	&#9829;</a> {{ likeCounts }}
         {% else %}
-            <a href="/blog/likeArticle/{{ article.id }}/{{ "setlike" }}" class="btn btn-success">Like</a> {{ likeCounts }}
+            <a href="/blog/likeArticle/{{ article.id }}/{{ "setlike" }}" class="btn btn-outline-dark">Like 	&#9825;</a> {{ likeCounts }}
         {% endif %}
     </p>
     
